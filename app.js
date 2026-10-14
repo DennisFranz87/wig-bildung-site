@@ -9,7 +9,7 @@ window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf
   document.querySelectorAll('.rv').forEach(function(el){io?io.observe(el):reveal(el)});
   document.querySelectorAll('[data-count]').forEach(function(el){if(!el.closest('.rv'))count(el)});
   var dl=window.dataLayer=window.dataLayer||[];
-  function track(ev,extra){var o={event:ev};if(extra)for(var k in extra)o[k]=extra[k];dl.push(o);}
+  function track(ev,extra){var o={event:ev};if(extra)for(var k in extra)o[k]=extra[k];dl.push(o);if(window.fbq){if(ev==='lead_form_submit')fbq('track','Lead',{content_name:(extra&&extra.course)||'',content_category:(extra&&extra.kind)||''});else if(ev==='phone_click'||ev==='whatsapp_click')fbq('track','Contact',{content_name:ev});else if(ev==='booking_click')fbq('trackCustom','BookingClick',{content_name:(extra&&extra.course)||''});}}
   document.addEventListener('click',function(e){
     var a=e.target.closest('[data-track]');if(!a)return;
     track(a.getAttribute('data-track'),{course:a.getAttribute('data-course')||document.body.getAttribute('data-course')||'',href:a.getAttribute('href')});
