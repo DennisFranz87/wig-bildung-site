@@ -1,5 +1,12 @@
 window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf8923";window.API_BASE=(location.hostname==='www.wig-bildung.de'||location.hostname.endsWith('.pages.dev')||location.hostname==='localhost')?'':'https://www.wig-bildung.de';
 (function(){
+  var cb=document.getElementById('consent');function cget(){try{return localStorage.getItem('wig_consent')}catch(e){return null}}function cset(v){try{localStorage.setItem('wig_consent',v)}catch(e){}}
+  function applyConsent(v){if(v==='all'&&window.__loadPixel)window.__loadPixel();if(cb)cb.hidden=true}
+  var cv=cget();if(cv)applyConsent(cv);else if(cb){setTimeout(function(){cb.hidden=false;requestAnimationFrame(function(){cb.classList.add('show')})},900)}
+  var ca=document.getElementById('c-all'),cm=document.getElementById('c-min'),co=document.getElementById('c-open');
+  if(ca)ca.addEventListener('click',function(){cset('all');applyConsent('all')});
+  if(cm)cm.addEventListener('click',function(){cset('min');applyConsent('min')});
+  if(co)co.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('wig_consent')}catch(x){}if(cb){cb.hidden=false;cb.classList.add('show');window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}});
   document.querySelectorAll('.has-dd').forEach(function(li){var b=li.querySelector('.dd-toggle');b.addEventListener('click',function(e){e.stopPropagation();var o=li.classList.toggle('open');b.setAttribute('aria-expanded',o)});li.addEventListener('keydown',function(e){if(e.key==='Escape'){li.classList.remove('open');b.setAttribute('aria-expanded',false)}})});
   document.addEventListener('click',function(e){if(!e.target.closest('.has-dd'))document.querySelectorAll('.has-dd.open').forEach(function(li){li.classList.remove('open');li.querySelector('.dd-toggle').setAttribute('aria-expanded',false)})});
   var hd=document.querySelector('header.site');function sc(){hd.classList.toggle('scrolled',window.scrollY>10)}window.addEventListener('scroll',sc,{passive:true});sc();

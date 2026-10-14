@@ -349,3 +349,15 @@ nav.main .dd-foot a{display:inline;padding:0;font-weight:700;color:var(--red);fo
   nav.main .dd a{font-size:.98rem;padding:.5rem .6rem}
   nav.main .dd h5{margin-top:.4rem}
 }
+
+/* Cookie-Hinweis */
+.consent{position:fixed;left:16px;bottom:16px;z-index:70;max-width:360px;width:calc(100% - 32px);opacity:0;transform:translateY(16px);transition:.4s cubic-bezier(.2,.8,.2,1)}
+.consent.show{opacity:1;transform:none}
+.consent-in{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem;box-shadow:var(--shadow-lg)}
+.consent p{font-size:.86rem;color:var(--ink-2);margin:0 0 .8rem;line-height:1.45}
+.consent p a{color:var(--muted);text-decoration:underline}
+.consent-btns{display:flex;align-items:center;gap:.9rem}
+.consent .btn{padding:.65rem 1.2rem;font-size:.92rem}
+.consent-min{background:none;border:0;color:var(--muted);font:inherit;font-size:.8rem;cursor:pointer;padding:.3rem 0;text-decoration:underline;text-underline-offset:2px}
+.consent-min:hover{color:var(--ink)}
+@media (max-width:720px){.consent{bottom:78px;left:12px;width:calc(100% - 24px);max-width:none}}
