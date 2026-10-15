@@ -49,7 +49,7 @@ window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf
   var f=document.getElementById('leadform');
   if(f){
     var q=new URLSearchParams(location.search).get('kurs');
-    if(q){var sel=f.querySelector('select[name=kurs]');if(sel){var opt=[].slice.call(sel.options).find(function(o){return o.value.toLowerCase().indexOf(q.replace(/-/g,' ').split(' ')[0])>=0});if(opt)sel.value=opt.value;}}
+    if(q){var sel=f.querySelector('select[name=kurs]');if(sel){var opt=[].slice.call(sel.options).find(function(o){return o.getAttribute('data-slug')===q});if(opt)sel.value=opt.value;}}
     f.addEventListener('submit',function(e){
       e.preventDefault();var msg=document.getElementById('formmsg');msg.className='form-msg';
       if(!f.checkValidity()){f.reportValidity();return}
