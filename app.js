@@ -16,7 +16,7 @@ window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf
   document.querySelectorAll('.rv').forEach(function(el){io?io.observe(el):reveal(el)});
   document.querySelectorAll('[data-count]').forEach(function(el){if(!el.closest('.rv'))count(el)});
   var dl=window.dataLayer=window.dataLayer||[];
-  function track(ev,extra){var o={event:ev};if(extra)for(var k in extra)o[k]=extra[k];dl.push(o);if(window.fbq){if(ev==='lead_form_submit')fbq('track','Lead',{content_name:(extra&&extra.course)||'',content_category:(extra&&extra.kind)||''});else if(ev==='phone_click'||ev==='whatsapp_click')fbq('track','Contact',{content_name:ev});else if(ev==='booking_click')fbq('trackCustom','BookingClick',{content_name:(extra&&extra.course)||''});}}
+  function track(ev,extra){var o={event:ev};if(extra)for(var k in extra)o[k]=extra[k];dl.push(o);if(window.fbq){if(ev==='lead_form_submit')fbq('track','Lead',{content_name:(extra&&extra.course)||'',content_category:(extra&&extra.kind)||''});else if(ev==='phone_click'||ev==='whatsapp_click'||ev==='email_click')fbq('track','Contact',{content_name:ev});else if(ev==='booking_click')fbq('trackCustom','BookingClick',{content_name:(extra&&extra.course)||''});}}
   document.addEventListener('click',function(e){
     var a=e.target.closest('[data-track]');if(!a)return;
     track(a.getAttribute('data-track'),{course:a.getAttribute('data-course')||document.body.getAttribute('data-course')||'',href:a.getAttribute('href')});
@@ -61,7 +61,7 @@ window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf
       }).catch(function(err){
         msg.className='form-msg err';
         var body=encodeURIComponent(Object.keys(data).filter(function(k){return k!=='website'&&k!=='dsgvo'}).map(function(k){return k+': '+data[k]}).join('\n'));
-        msg.innerHTML='Das Formular konnte gerade nicht gesendet werden. Bitte schreiben Sie uns direkt: <a href="mailto:kontakt@wig-bildung.de?subject=Anfrage%20Website&body='+body+'">kontakt@wig-bildung.de</a> oder rufen Sie an.';
+        msg.innerHTML='Das Formular konnte gerade nicht gesendet werden. Bitte schreiben Sie uns direkt: <a href="mailto:kontakt@wig-bildung.de?subject=Anfrage%20Website&body='+body+'" data-track="email_click">kontakt@wig-bildung.de</a> oder rufen Sie an.';
       }).finally(function(){btn.disabled=false;btn.textContent=f.getAttribute('data-kind')==='pocket'?'Bestellung anfragen':'Anfrage senden'});
     });
   }
