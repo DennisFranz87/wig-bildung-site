@@ -55,6 +55,12 @@ window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf
       if(!f.checkValidity()){f.reportValidity();return}
       var data={};new FormData(f).forEach(function(v,k){data[k]=v});data.kind=f.getAttribute('data-kind');data.page=location.pathname;
       var btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Wird gesendet …';
+      // Lead zusätzlich per E-Mail weiterleiten (FormSubmit; nur aus dem Browser möglich). Empfänger hinter Alias, Kopie per _cc.
+      if(!data.website){try{var fs={_subject:'Neue Anfrage über wig-bildung.de'+(data.kurs?': '+data.kurs:''),_template:'table',_captcha:'false',_cc:'effelsberg@jonuvia-cosmetics.de'};
+        if(data.email)fs._replyto=data.email;
+        var map={Typ:data.kind,Name:data.name,'E-Mail':data.email,Telefon:data.telefon,'Kurs / Thema':data.kurs,Nachricht:data.nachricht,Einrichtung:data.firma,Menge:data.menge,Lieferadresse:data.adresse,Seite:location.href};
+        Object.keys(map).forEach(function(k){if(map[k])fs[k]=map[k]});
+        fetch('https://formsubmit.co/ajax/3cc7f2738e8fd535a28d5acf075195c1',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(fs)}).catch(function(){});}catch(e){}}
       fetch((window.API_BASE||'')+'/api/kontakt',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){
         if(j.ok){msg.className='form-msg ok';msg.textContent='Vielen Dank. Ihre Anfrage ist bei uns eingegangen, wir melden uns zeitnah.';f.reset();track('lead_form_submit',{kind:data.kind,course:data.kurs||''});}
         else throw new Error(j.error||'');
