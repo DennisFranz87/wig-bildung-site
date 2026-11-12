@@ -56,7 +56,7 @@ window.SEMPLAN="https://wig.semplan2.de/?client=542314b3-5bdd-46f9-86e0-35c25edf
       var data={};new FormData(f).forEach(function(v,k){data[k]=v});data.kind=f.getAttribute('data-kind');data.page=location.pathname;
       var btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Wird gesendet …';
       // Lead zusätzlich per E-Mail weiterleiten (FormSubmit; nur aus dem Browser möglich). Empfänger hinter Alias, Kopie per _cc.
-      if(!data.website){try{var fs={_subject:'Neue Anfrage über wig-bildung.de'+(data.kurs?': '+data.kurs:''),_template:'table',_captcha:'false',_cc:'effelsberg@jonuvia-cosmetics.de'};
+      if(!data.website){try{var fs={_subject:'Neue Anfrage'+(data.name?' von '+data.name:'')+' über wig-bildung.de'+(data.kurs?': '+data.kurs:''),_template:'table',_captcha:'false',_cc:'effelsberg@jonuvia-cosmetics.de'};
         if(data.email)fs._replyto=data.email;
         var map={Typ:data.kind,Name:data.name,'E-Mail':data.email,Telefon:data.telefon,'Kurs / Thema':data.kurs,Nachricht:data.nachricht,Einrichtung:data.firma,Menge:data.menge,Lieferadresse:data.adresse,Seite:location.href};
         Object.keys(map).forEach(function(k){if(map[k])fs[k]=map[k]});
